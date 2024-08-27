@@ -68,13 +68,26 @@ export const merge = (...args) => {
 };
 
 export const mergeAndRemoveNull = (...args) => {
-  const result = merge(...args);
+  const result = {};
 
-  // Any header whose value is `null` will be removed.
-  Object.keys(result).forEach(k => {
-    if (result[k] === null) {
-      delete result[k];
+  args.forEach((headers) => {
+    if (!headers) {
+      return;
     }
+
+    Object.keys(headers).forEach((header) => {
+      const value = headers[header];
+
+      // Lowercase the header name to be consistent.
+      header = header.toLowerCase();
+
+      if (value !== null) {
+        result[header] = value;
+      } else {
+        // Any header whose value is `null` will be removed.
+        delete result[header];
+      }
+    });
   });
 
   return result;

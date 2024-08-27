@@ -66,9 +66,9 @@ QUnit.test('emeHeaders sent with license requests', function(assert) {
     uri: 'some-url',
     method: 'post',
     headers: {
-      'Content-Type': 'text/xml; charset=utf-8',
-      'SOAPAction': '"http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense"',
-      'Some-Header': 'some-header-value'
+      'content-type': 'text/xml; charset=utf-8',
+      'soapaction': '"http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense"',
+      'some-header': 'some-header-value'
     },
     body: challengeElement,
     responseType: 'arraybuffer',
@@ -105,9 +105,9 @@ QUnit.test('licenseHeaders property overrides emeHeaders', function(assert) {
     uri: 'some-url',
     method: 'post',
     headers: {
-      'Content-Type': 'text/xml; charset=utf-8',
-      'SOAPAction': '"http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense"',
-      'Some-Header': 'priority-header-value'
+      'content-type': 'text/xml; charset=utf-8',
+      'soapaction': '"http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense"',
+      'some-header': 'priority-header-value'
     },
     body: challengeElement,
     responseType: 'arraybuffer',
