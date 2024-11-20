@@ -254,6 +254,21 @@ const onPlayerReady = (player, emeError) => {
 
   setupSessions(player);
 
+  /*
+   * If playback is switched to AirPlay, we will receive another encrypted event,
+   * proxied from the AirPlay device, as is described here:
+   *
+   * https://developer.apple.com/streaming/fps/FairPlayStreamingOverview.pdf
+   *
+   * To accomodate for this, we should clear our list of sessions when the playback
+   * target changes, because the request is otherwise dropped as a duplicate.
+   */
+  if ('webkitCurrentPlaybackTargetIsWireless' in player.tech_.el_) {
+    player.tech_.el_.addEventListener('webkitcurrentplaybacktargetiswirelesschanged', () => {
+      player.eme.sessions = [];
+    });
+  }
+
   if (window.MediaKeys) {
     const sendMockEncryptedEvent = () => {
       const mockEncryptedEvent = {
